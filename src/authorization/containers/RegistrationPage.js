@@ -5,7 +5,9 @@ import { userRegistrationRequest } from './../actions';
 import RegistrationForm from './../components/RegistrationForm';
 import Panel from './../../components/panel/Panel';
 
-
+const mapStateToProps = (state) => ({
+    errors: state.users.errors
+});
 class RegistrationPage extends Component {
     register = (user) => {
         this.props.dispatch(userRegistrationRequest(user));
@@ -16,12 +18,14 @@ class RegistrationPage extends Component {
                 {
                     <Panel header='Registration'>
                         <RegistrationForm
-                            register={this.register} />
+                            errors={this.props.errors}
+                            register={this.register}
+                        />
                     </Panel>
                 }
             </div>
         );
     }
-    
+
 }
-export default connect(null)(RegistrationPage);
+export default connect(mapStateToProps)(RegistrationPage);

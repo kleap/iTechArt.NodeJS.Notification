@@ -2,30 +2,43 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { createStore, compose, applyMiddleware } from 'redux';
+
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
-
-const sagaMiddleware = createSagaMiddleware();
-
+import { userReducer } from './authorization/reducers/reducer';
 import Layout from './components/Layout';
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+
+const history = createHistory();
+const sagaMiddleware = createSagaMiddleware();
+const middleware = routerMiddleware(history);
 
 
 const store = createStore(
-  (state = {}) => state,
+  combineReducers({
+    users: userReducer,
+    router: routerReducer
+  }),
+  {
+    users: {
+      isAuth: false,
+      errors: {}
+    }
+  },
   compose(
-  applyMiddleware(sagaMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f )// connect to redux devtools
+    applyMiddleware(sagaMiddleware, middleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f)// connect to redux devtools
 );
 sagaMiddleware.run(rootSaga);
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter >
+    <ConnectedRouter history={history} >
       <Layout />
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('app')
 );

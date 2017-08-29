@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router';
 import { LoginPage, RegistrationPage } from './../authorization';
+import DashboardPage from './../dashboard/DashboardPage';
 import Navigation from './Navigation';
+import NotificationPage from './../notification/contatiners/NotificationPage';
 
 class Layout extends Component {
     render() {
@@ -12,6 +14,8 @@ class Layout extends Component {
                     <Switch>
                         <Route path='/login' component={LoginPage} />
                         <Route path='/registration' component={RegistrationPage} />
+                        <Route path='/dashboard' component={DashboardPage} />
+                        <Route path='/notification' component={NotificationPage} />
                     </Switch>
                 </main>
 

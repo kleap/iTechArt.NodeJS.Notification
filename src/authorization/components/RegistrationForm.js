@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Label, Form, FormGroup, Button } from 'reactstrap';
+import validateInput from './../../../server/shared/validations/registration';
+
+import { Input, Label, Form, FormGroup, FormText, Button } from 'reactstrap';
+import TextFieldGroup from './../../components/TextFieldGroup';
 
 class RegistrationForm extends Component {
     constructor(props) {
@@ -8,7 +11,8 @@ class RegistrationForm extends Component {
         this.state = {
             email: '',
             password: '',
-            passwordConfirmation: ''
+            passwordConfirmation: '',
+            errors: props.errors 
         }
     }
 
@@ -18,28 +22,47 @@ class RegistrationForm extends Component {
         });
     }
 
+    isValid() {
+        const { errors, isValid } = validateInput(this.state);
+        if (!isValid) {
+            this.setState({ errors });
+        }
+        return isValid;
+    }
     onSubmit(e) {
         e.preventDefault();
-        this.props.register(this.state);
-
+        if (this.isValid()) {
+            this.props.register(this.state);
+        }
     }
 
     render() {
         return (
-
             <Form className='d-flex flex-column' onSubmit={(e) => this.onSubmit(e)}>
-                <FormGroup>
-                    <Label >Email</Label>
-                    <Input type="email" name='email' onChange={(e) => this.onChange(e)} value={this.state.email} placeholder="Email" />
-                </FormGroup>
-                <FormGroup>
-                    <Label >Password</Label>
-                    <Input type="password" name="password" onChange={(e) => this.onChange(e)} value={this.state.password} placeholder="Password" />
-                </FormGroup>
-                <FormGroup>
-                    <Label >Password confirmation</Label>
-                    <Input type="password" name="passwordConfirmation" onChange={(e) => this.onChange(e)} value={this.state.passwordConfirmation} placeholder="Password" />
-                </FormGroup>
+                <TextFieldGroup
+                    label='Email'
+                    type='email'
+                    field='email'
+                    value={this.state.email}
+                    onChange={(e) => this.onChange(e)}
+                    error={this.state.errors['email'] || this.props.errors.email}
+                />
+                <TextFieldGroup
+                    label='Password'
+                    type='password'
+                    field='password'
+                    value={this.state.password}
+                    onChange={(e) => this.onChange(e)}
+                    error={this.state.errors['password']}
+                />
+                <TextFieldGroup
+                    label='Password confirmation'
+                    type='password'
+                    field='passwordConfirmation'
+                    value={this.state.passwordConfirmation}
+                    onChange={(e) => this.onChange(e)}
+                    error={this.state.errors['passwordConfirmation']}
+                />
                 <Button className='align-self-end'>Register</Button>
             </Form>
 
@@ -48,6 +71,7 @@ class RegistrationForm extends Component {
 }
 
 RegistrationForm.propTypes = {
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    errors: PropTypes.object,
 }
 export default RegistrationForm;

@@ -9,7 +9,8 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 	devServer: {
-		contentBase: './dist',
+		port: 5000,
+		contentBase: path.join(__dirname, "/dist"),
 		historyApiFallback: true
 	},
 	module: {
@@ -19,8 +20,7 @@ module.exports = {
 				loader: 'babel-loader',
 				include: path.join(__dirname, 'src'),
 				query: {
-					presets: ['es2015', 'react'],
-					plugins: ['transform-class-properties']
+					presets: ['es2015', 'react','stage-0']
 				}
 			},
 			{

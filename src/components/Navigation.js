@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import { Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { USER_LOGOUT } from './../authorization/actions/constants';
+import { Navbar, Button, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+
+
+const mapStateToProps = (state) => ({
+    isAuth: state.users.isAuth
+});
 
 class Navigation extends Component {
     render() {
@@ -9,17 +17,27 @@ class Navigation extends Component {
             <Navbar color="faded" light toggleable>
                 <NavbarToggler right onClick={this.toggle} />
                 <NavbarBrand href="/">Notifications</NavbarBrand>
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink tag={Link} to='/login'>Log in</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to='/registration'>Register</NavLink>
-                    </NavItem>
-                </Nav>
+                {!this.props.isAuth ?
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink tag={Link} to='/login'>Log in</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to='/registration'>Register</NavLink>
+                        </NavItem>
+                    </Nav> :
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <Button onClick={() => this.props.dispatch({ type: USER_LOGOUT })}>Log out</Button>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to='/notification'>notification</NavLink>
+                        </NavItem>
+                    </Nav>
+                }
             </Navbar>
         );
     }
 }
 
-export default Navigation;
+export default connect(mapStateToProps)(Navigation);
