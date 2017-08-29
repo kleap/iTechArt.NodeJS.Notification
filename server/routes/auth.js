@@ -11,20 +11,20 @@ let router = express.Router();
 router.post('/', (req, res) => {
     const { errors, isValid } = commonValidations(req.body);
     if (!isValid) {
-        res.status(200).json(errors);
+        res.status(400).json(errors);
     } else {
         const { email, password } = req.body;
         User.findOne({ email: email })
             .exec()
             .then((user) => {
                 if (!user) {
-                    res.status(200).json({ email: 'Wrong email' });
+                    res.status(400).json({ email: 'Wrong email' });
                 } else {
                     if (passwordHash.verify(password, user.passwordHash)) {
                         req.session.userId = user._id;
-                        res.status(200).json({ success: true, userId: req.session.userId });
+                        res.status(200).json({ success: true, token: req.session.userId });
                     } else {
-                        res.status(200).json({ password: 'Wrong password' });
+                        res.status(400).json({ password: 'Wrong password' });
                     }
                 }
 

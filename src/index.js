@@ -23,7 +23,6 @@ const store = createStore(
   }),
   {
     users: {
-      isAuth: false,
       errors: {}
     }
   },

@@ -4,44 +4,46 @@ import {
     USER_REGISTRATION_REQUEST_SUCCESS,
     USER_LOGIN_REQUEST,
     USER_LOGIN_REQUEST_SUCCESS,
-    USER_LOGIN_REQUEST_FAIL
+    USER_LOGIN_REQUEST_FAIL,
+    USER_LOGOUT
 } from './authorization/actions/constants';
-import { userRegistrationRequest, userLoginRequest } from './authorization/services/api';
-import { push } from 'react-router-redux';
-import { take, call, put, all } from 'redux-saga/effects';
+import {userRegistrationRequest, userLoginRequest} from './authorization/services/api';
+import {push} from 'react-router-redux';
+import {take, call, put, all, fork} from 'redux-saga/effects';
 
-export function* register() {
+function * authorize(user) {
+    try {
+        const {token} = yield call(userLoginRequest, user);
+        yield put({type: USER_LOGIN_REQUEST_SUCCESS, token});
+        yield put(push('/dashboard'));
+        return token;
+    } catch (error) {
+        const {data} = error.response;
+        yield put({type: USER_LOGIN_REQUEST_FAIL, errors: data});
+    }
+}
+
+export function * loginFlow() {
     while (true) {
-        let action = yield take(USER_REGISTRATION_REQUEST);
-        let user = action.user;
+        const {user} = yield take(USER_LOGIN_REQUEST);
+        let response = yield fork(authorize, user);
+        const action = yield take([USER_LOGIN_REQUEST_FAIL, USER_LOGOUT]);
+        //clear token
+    }
+}
 
+export function * register() {
+    while (true) {
+        const {user} = yield take(USER_REGISTRATION_REQUEST);
         const response = yield call(userRegistrationRequest, user);
         if (response.success) {
-            yield put({ type: USER_REGISTRATION_REQUEST_SUCCESS });
+            yield put({type: USER_REGISTRATION_REQUEST_SUCCESS});
             yield put(push('/login'));
         } else {
-            yield put({ type: USER_REGISTRATION_REQUEST_FAIL, errors: response });
+            yield put({type: USER_REGISTRATION_REQUEST_FAIL, errors: response});
         }
     }
 }
-
-export function* login() {
-    while (true) {
-        let action = yield take(USER_LOGIN_REQUEST);
-
-        let response = yield call(userLoginRequest, action.user);
-        console.log(response);
-        if (response.success) {
-            yield put({ type: USER_LOGIN_REQUEST_SUCCESS, userId: response.userId });
-            yield put(push('/dashboard'));
-        } else {
-            yield put({ type: USER_LOGIN_REQUEST_FAIL, errors: response });
-        }
-    }
-}
-
-
-
-export default function* root() {
-    yield all([register(), login()])
+export default function * root() {
+    yield all([register(), loginFlow()])
 }

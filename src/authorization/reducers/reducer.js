@@ -10,9 +10,9 @@ export const userReducer = (state = {}, action) => {
         case types.USER_LOGIN_REQUEST_FAIL:
             return { ...state,  errors: action.errors };
         case types.USER_LOGIN_REQUEST_SUCCESS:
-            return { ...state, isAuth: true, errors: {}, userId: action.userId  };
+            return { ...state, errors: {}, token: action.token  };
         case types.USER_LOGOUT: {
-            return { ...state, isAuth: false, userId: "" };
+            return { ...state, userId: "" };
         }
         default:
             return state;
