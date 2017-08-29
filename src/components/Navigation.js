@@ -33,6 +33,9 @@ class Navigation extends Component {
                         <NavItem>
                             <NavLink tag={Link} to='/notification'>notification</NavLink>
                         </NavItem>
+                         <NavItem>
+                            <NavLink tag={Link} to='/dashboard'>dashboard</NavLink>
+                        </NavItem>
                     </Nav>
                 }
             </Navbar>
