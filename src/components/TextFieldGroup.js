@@ -25,7 +25,7 @@ class TextFieldGroup extends Component {
 
 TextFieldGroup.propTypes = {
     field: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
     label: PropTypes.string.isRequired,
     error: PropTypes.string,
     type: PropTypes.string.isRequired,

@@ -5,29 +5,27 @@ import NotificationListItem from './NotificationListItem';
 
 class Dashboard extends Component {
     render() {
-        const elements = [];
-        for (let index = 0; index < 5; index++) {
-            elements.push(({
-                id: index*5,
-                theme: 'theme' + index
-            }));
-        }
-        const items = elements.map((e,index)=>(
-            <NotificationListItem 
-                key={e.id+index}
-                id={e.id+'S'}
+        const items = this
+            .props
+            .items
+            .map((e, index) => (<NotificationListItem
+                key={e._id}
+                index={index + 1}
+                id={e._id}
+                isRunning={e.isRunning}
                 theme={e.theme}
-            />
-        ))
+                onChoose={this.props.onChoose}
+                onToggle={this.props.onToggle}/>))
         return (
             <div >
-                <Table hover>
+                <Table>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Theme</th>
                             <th>Last time</th>
                             <th>Next time</th>
+                            <th>Activity</th>
                         </tr>
                     </thead>
                     <tbody>

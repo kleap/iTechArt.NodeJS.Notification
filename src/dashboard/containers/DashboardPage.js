@@ -1,14 +1,40 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import Dashboard from './../components/Dashboard';
 import Panel from './../../components/panel/Panel';
+import {notificationFetchRequest, notificationGetRequest, toggleNotification} from './../actions';
+
+const mapStateToProps = (state) => ({items: state.dashboard.items, isAuth: state.users.isAuth});
+
 class DashboardPage extends Component {
+
+    componentWillMount() {
+        this
+            .props
+            .dispatch(notificationFetchRequest());
+    }
+
+    onChoose = (id) => {
+        this
+            .props
+            .dispatch(notificationGetRequest(id));
+    }
+
+    onToggle = (id) => {
+        this
+            .props
+            .dispatch(toggleNotification(id));
+    }
+
     render() {
         return (
             <div>
                 <div className='d-flex justify-content-center'>
                     <Panel header='Dashboard' wide>
-                        <Dashboard />
+                        <Dashboard
+                            items={this.props.items}
+                            onChoose={this.onChoose}
+                            onToggle={this.onToggle}/>
                     </Panel>
                 </div>
             </div>
@@ -17,8 +43,5 @@ class DashboardPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    isAuth: state.users.isAuth
-});
 
 export default connect(mapStateToProps)(DashboardPage);
