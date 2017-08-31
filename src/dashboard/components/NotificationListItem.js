@@ -37,8 +37,8 @@ NotificationListItem.propTypes = {
     isRunning: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
     theme: PropTypes.string.isRequired,
-    lastTime: PropTypes.instanceOf(Date),
-    nextTime: PropTypes.instanceOf(Date),
+    lastTime: PropTypes.string,
+    nextTime: PropTypes.string,
     onChoose: PropTypes.func.isRequired,
     onToggle: PropTypes.func.isRequired
 }

@@ -48,14 +48,4 @@ router.post('/', (req, res) => {
     });
 });
 
-router.post('/prof', (req, res) => {
-    User
-        .findById(req.session.userId)
-        .exec((err, user) => {
-            if (user) {
-                res.send('HELLO BITCH');
-            }
-        })
-})
-
 export default router;

@@ -11,12 +11,13 @@ import mongoose from 'mongoose';
 import mongoStore from 'connect-mongo';
 import {uri} from './constants';
 import cookieParser from 'cookie-parser';
-mongoose.Promise = Promise;
 const MongoStore = mongoStore(session);
 const app = express();
 const port = process.env.PORT || 8080;
 mongoose.connect(uri, {useMongoClient: true});
+mongoose.Promise = Promise;
 
+process.env.TZ = 'America/Managua';
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

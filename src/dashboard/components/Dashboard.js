@@ -12,6 +12,8 @@ class Dashboard extends Component {
                 key={e._id}
                 index={index + 1}
                 id={e._id}
+                lastTime={e.lastTime}
+                nextTime={e.nextTime}
                 isRunning={e.isRunning}
                 theme={e.theme}
                 onChoose={this.props.onChoose}
