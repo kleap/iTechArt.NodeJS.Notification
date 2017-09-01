@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextFieldGroup from './../../components/TextFieldGroup';
-import {Form, Button, FormGroup} from 'reactstrap';
+import { Form, Button, FormGroup } from 'reactstrap';
 
 class NotificationForm extends Component {
     constructor(props) {
@@ -45,13 +45,13 @@ class NotificationForm extends Component {
                     label='Theme'
                     field='theme'
                     value={this.state.theme}
-                    onChange={(e) => this.onChange(e)}/>
+                    onChange={(e) => this.onChange(e)} />
                 <TextFieldGroup
                     type='textarea'
                     label='Message'
                     field='message'
                     value={this.state.message}
-                    onChange={(e) => this.onChange(e)}/>
+                    onChange={(e) => this.onChange(e)} />
                 <TextFieldGroup
                     type='select'
                     label='Interval'

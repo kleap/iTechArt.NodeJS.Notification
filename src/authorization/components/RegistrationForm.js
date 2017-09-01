@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import validateInput from './../../../server/shared/validations/registration';
 
@@ -25,7 +25,7 @@ class RegistrationForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({errors: nextProps.errors})
+            this.setState({ errors: nextProps.errors })
         }
     }
 
@@ -36,9 +36,9 @@ class RegistrationForm extends Component {
     }
 
     isValid() {
-        const {errors, isValid} = validateInput(this.state);
+        const { errors, isValid } = validateInput(this.state);
         if (!isValid) {
-            this.setState({errors});
+            this.setState({ errors });
         }
         return isValid;
     }
@@ -62,21 +62,21 @@ class RegistrationForm extends Component {
                     field='email'
                     value={this.state.email}
                     onChange={(e) => this.onChange(e)}
-                    error={this.state.errors['email']}/>
+                    error={this.state.errors['email']} />
                 <TextFieldGroup
                     label='Password'
                     type='password'
                     field='password'
                     value={this.state.password}
                     onChange={(e) => this.onChange(e)}
-                    error={this.state.errors['password']}/>
+                    error={this.state.errors['password']} />
                 <TextFieldGroup
                     label='Password confirmation'
                     type='password'
                     field='passwordConfirmation'
                     value={this.state.passwordConfirmation}
                     onChange={(e) => this.onChange(e)}
-                    error={this.state.errors['passwordConfirmation']}/>
+                    error={this.state.errors['passwordConfirmation']} />
                 <Button className='align-self-end'>Register</Button>
             </Form>
 

@@ -1,4 +1,4 @@
 export default {
-    user : 'artemy.sinitsa@gmail.com',
-    password : 'artemy0431'
+    user: 'artemy.sinitsa@gmail.com',
+    password: 'artemy0431'
 };

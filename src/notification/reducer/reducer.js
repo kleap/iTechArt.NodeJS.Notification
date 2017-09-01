@@ -3,8 +3,10 @@ import * as actions from './../actions';
 
 export const notificationReducer = (state = {}, action) => {
     switch (action.type) {
+        case types.NOTIFICATION_SAVE_REQUEST:
+            return {};
         case types.NOTIFICATION_GET_REQUEST_SUCCESS:
-            const {_id, interval, message, theme} = action.data;
+            const { _id, interval, message, theme } = action.data;
             return {
                 ...state,
                 id: _id,

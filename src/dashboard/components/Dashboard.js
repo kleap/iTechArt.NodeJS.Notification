@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Table} from 'reactstrap';
+import React, { Component } from 'react';
+import { Table } from 'reactstrap';
 import PropTypes from 'prop-types';
 import NotificationListItem from './NotificationListItem';
 
@@ -17,7 +17,7 @@ class Dashboard extends Component {
                 isRunning={e.isRunning}
                 theme={e.theme}
                 onChoose={this.props.onChoose}
-                onToggle={this.props.onToggle}/>))
+                onToggle={this.props.onToggle} />))
         return (
             <div >
                 <Table>
@@ -41,7 +41,9 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-    notifications: PropTypes.array
+    items: PropTypes.array,
+    onChoose: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired
 }
 
 export default Dashboard;

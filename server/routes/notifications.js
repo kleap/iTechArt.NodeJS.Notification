@@ -94,9 +94,14 @@ router.post('/item/:id', (req, res) => {
             } else {
                 taskRunner.stopJob(notification._id);
             }
-            res
-                .status(200)
-                .json({success: true});
+            taskRunner
+                .modifyNotification(notification.userId, notification)
+                .then((modifiedNotification) => {
+                    res
+                        .status(200)
+                        .json({success: true, data: modifiedNotification});
+                })
+
         });
 });
 

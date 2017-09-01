@@ -5,7 +5,7 @@ module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	entry: './index.js',
 	output: {
-		path: path.join(__dirname, '/dist/js'),
+		path: path.join(__dirname, '/dist/'),
 		filename: 'bundle.js'
 	},
 	devtool: 'inline-source-map',

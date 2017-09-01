@@ -1,6 +1,6 @@
 import Agenda from 'agenda';
-import {MongoClient} from 'mongodb';
-import {SEND_EMAIL_JOB_NAME} from './constants';
+import { MongoClient } from 'mongodb';
+import { SEND_EMAIL_JOB_NAME } from './constants';
 import mongoose from 'mongoose';
 import moment from 'moment';
 
@@ -25,7 +25,7 @@ export default class TaskRunner {
                 priority: 'high',
                 concurrency: 100
             }, function (job, done) {
-                const {theme, message} = job.attrs.data;
+                const { theme, message } = job.attrs.data;
                 console.log('theme: ' + theme + '\nmessage: ' + message);
                 done();
             });
@@ -37,7 +37,6 @@ export default class TaskRunner {
             var notificationReport = this
                 .agenda
                 .create(SEND_EMAIL_JOB_NAME, notification);
-
             notificationReport
                 .repeatEvery(notification.interval * 1000 * 60)
                 .save();
@@ -49,13 +48,15 @@ export default class TaskRunner {
         return mongoose
             .connection
             .collection('jobs')
-            .findOne({'data.userId': userId, 'data._id': notification._id})
+            .findOne({ 'data.userId': userId, 'data._id': notification._id })
             .then((job) => {
                 if (job) {
                     const modifiedNotification = {
                         ...notification._doc,
                         lastTime: moment(job.lastRunAt).format('MMMM Do YYYY, h:mm:ss a'),
-                        nextTime: moment(job.nextRunAt).format('MMMM Do YYYY, h:mm:ss a')
+                        nextTime: moment(job.lastRunAt)
+                            .add(job.repeatInterval, 'ms')
+                            .format('MMMM Do YYYY, h:mm:ss a')
                     };
                     return modifiedNotification;
                 } else {
@@ -67,7 +68,7 @@ export default class TaskRunner {
     stopJob(notificationId) {
         this
             .agenda
-            .cancel({'data._id': notificationId});
+            .cancel({ 'data._id': notificationId });
     }
 
     isJobRunning(id) {

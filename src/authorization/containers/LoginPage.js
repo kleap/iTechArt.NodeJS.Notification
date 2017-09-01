@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import LoginForm from './../components/LoginForm';
 import Panel from './../../components/panel/Panel';
-import {userLoginRequest} from './../actions/index';
+import { userLoginRequest } from './../actions/index';
 
 const mapStateToProps = (state) => ({
     errors: state.users.errors

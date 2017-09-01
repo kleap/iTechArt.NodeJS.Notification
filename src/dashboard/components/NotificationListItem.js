@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Button} from 'reactstrap';
+import { Button } from 'reactstrap';
 const NotificationListItem = ({
     index,
     id,
@@ -23,10 +23,10 @@ const NotificationListItem = ({
                 <Button
                     onClick={(() => onToggle(id))}
                     color={isRunning
-                    ? 'danger'
-                    : 'success'}>{isRunning
-                        ? 'stop'
-                        : 'start'}</Button>
+                        ? 'danger'
+                        : 'success'}>{isRunning
+                            ? 'stop'
+                            : 'start'}</Button>
             </td>
         </tr>
     );

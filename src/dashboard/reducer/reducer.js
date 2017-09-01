@@ -3,6 +3,7 @@ import * as actions from './../actions';
 
 export const dashboardReducer = (state = {}, action) => {
     switch (action.type) {
+
         case types.NOTIFICATION_FETCH_REQUEST_SUCCESS:
             return {
                 ...state,
@@ -13,9 +14,9 @@ export const dashboardReducer = (state = {}, action) => {
                 ...state,
                 items: state
                     .items
-                    .map((n) => (n._id === action.id
+                    .map((n) => (n._id === action.data._id
                         ? {
-                            ...n,
+                            ...action.data,
                             isRunning: !n.isRunning
                         }
                         : n))

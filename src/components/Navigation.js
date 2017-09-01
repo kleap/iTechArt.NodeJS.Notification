@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
-import {USER_LOGOUT} from './../authorization/actions/constants';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { USER_LOGOUT } from './../authorization/actions/constants';
 import {
     Navbar,
     Button,
@@ -15,7 +15,7 @@ import {
     NavLink
 } from 'reactstrap';
 
-const mapStateToProps = (state) => ({isAuth: state.users.isAuth});
+const mapStateToProps = (state) => ({ isAuth: state.users.isAuth });
 
 class Navigation extends Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class Navigation extends Component {
     render() {
         return (
             <Navbar color="faded" light toggleable>
-                <NavbarToggler right onClick={this.toggle}/>
+                <NavbarToggler right onClick={this.toggle} />
                 <NavbarBrand href="/">Notifications</NavbarBrand>
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
@@ -45,7 +45,7 @@ class Navigation extends Component {
                             <NavLink tag={Link} to='/dashboard'>Dashboard</NavLink>
                         </NavItem>
                         <NavItem hidden={!this.props.isAuth}>
-                            <NavLink role='button' onClick={() => this.props.dispatch({type: USER_LOGOUT})}>Log out</NavLink>
+                            <NavLink role='button' onClick={() => this.props.dispatch({ type: USER_LOGOUT })}>Log out</NavLink>
                         </NavItem>
                         <NavItem hidden={this.props.isAuth}>
                             <NavLink tag={Link} to='/login'>Log in</NavLink>

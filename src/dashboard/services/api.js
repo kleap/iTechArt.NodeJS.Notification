@@ -3,9 +3,10 @@ import axios from 'axios';
 export function fetchNotifications(userId) {
     return axios
         .get('http://localhost:8080/api/notifications/' + userId)
-        .then((res) => ({
+        .then(res => ({
             ...res.data
-        }));
+        }))
+        .catch((error) => ({success: false}));
 }
 
 export function getNotification(id) {
@@ -13,7 +14,8 @@ export function getNotification(id) {
         .get('http://localhost:8080/api/notifications/item/' + id)
         .then((res) => ({
             ...res.data
-        }));
+        }))
+        .catch((error) => ({success: false}));
 }
 
 export function toggleNotification(id) {
@@ -21,5 +23,6 @@ export function toggleNotification(id) {
         .post('http://localhost:8080/api/notifications/item/' + id)
         .then((res) => ({
             ...res.data
-        }));
+        }))
+        .catch((error) => ({success: false}));;
 }

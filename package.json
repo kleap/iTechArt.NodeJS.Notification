@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start": "webpack && nodemon server/index.js --exec babel-node",
+    "dev": "webpack-dev-server --open",
     "build": "webpack",
-    "server": "webpack && nodemon server/index.js --exec babel-node",
     "server-only": "nodemon server/index.js --exec babel-node"
   },
   "babel": {

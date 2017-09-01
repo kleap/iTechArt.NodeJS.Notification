@@ -5,7 +5,7 @@ import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_REQUEST_SUCCESS,
     USER_LOGIN_REQUEST_FAIL,
-    
+
 } from './constants';
 
 export function userRegistrationRequest(user) {

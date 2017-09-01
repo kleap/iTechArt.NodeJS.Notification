@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Dashboard from './../components/Dashboard';
 import Panel from './../../components/panel/Panel';
-import {notificationFetchRequest, notificationGetRequest, toggleNotification} from './../actions';
+import PropTypes from 'prop-types';
 
-const mapStateToProps = (state) => ({items: state.dashboard.items, isAuth: state.users.isAuth});
+import { notificationFetchRequest, notificationGetRequest, toggleNotification } from './../actions';
+
+const mapStateToProps = (state) => ({ items: state.dashboard.items });
 
 class DashboardPage extends Component {
 
@@ -34,7 +36,7 @@ class DashboardPage extends Component {
                         <Dashboard
                             items={this.props.items}
                             onChoose={this.onChoose}
-                            onToggle={this.onToggle}/>
+                            onToggle={this.onToggle} />
                     </Panel>
                 </div>
             </div>
@@ -42,6 +44,5 @@ class DashboardPage extends Component {
         );
     }
 }
-
 
 export default connect(mapStateToProps)(DashboardPage);

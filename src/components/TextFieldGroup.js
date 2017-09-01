@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { Input, Label, FormGroup, FormText } from 'reactstrap';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ class TextFieldGroup extends Component {
                     name={this.props.field}
                     placeholder="">
                     {this.props.children}
-                    </Input>
+                </Input>
                 <FormText color="danger">
                     {this.props.error}
                 </FormText>
