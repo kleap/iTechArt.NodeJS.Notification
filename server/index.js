@@ -32,14 +32,13 @@ app.use(session({
 	secret: '1bd59f6c-ab43-49e0-9e72-0b9aa7ffd4aa',
 	store: new MongoStore({
 		mongooseConnection: mongoose.connection,
-		ttl: 1 * 60
+		ttl: 10 * 60
 	})
 }));
 
 app.use('/api/auth', auth);
 
 app.all('/api/*', (req, res, next) => {
-	console.log(req.session);
 	if (req.session.token) {
 		next();
 	} else {

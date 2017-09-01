@@ -5,8 +5,7 @@ export function userRegistrationRequest(user) {
         .post('http://localhost:8080/api/auth/register', user)
         .then((res) => ({
             ...res.data
-        }))
-        .catch((error) => ({ success: false }));
+        }));
 }
 
 export function userLoginRequest(user) {
@@ -14,8 +13,7 @@ export function userLoginRequest(user) {
         .post('http://localhost:8080/api/auth/login', user)
         .then((res) => ({
             ...res.data
-        }))
-        .catch((error) => ({ success: false }));
+        }));
 }
 
 export function userLogoutRequest(user) {
@@ -23,6 +21,5 @@ export function userLogoutRequest(user) {
         .post('http://localhost:8080/api/auth/logout')
         .then((res) => ({
             ...res.data
-        }))
-        .catch((error) => ({ success: false }));
+        }));
 }
