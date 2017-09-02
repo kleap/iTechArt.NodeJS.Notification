@@ -5,6 +5,8 @@ export function userRegistrationRequest(user) {
         .post('http://localhost:8080/api/auth/register', user)
         .then((res) => ({
             ...res.data
+        })).catch(err=>({
+            ...err.response.data
         }));
 }
 
@@ -13,6 +15,8 @@ export function userLoginRequest(user) {
         .post('http://localhost:8080/api/auth/login', user)
         .then((res) => ({
             ...res.data
+        })).catch(err=>({
+            ...err.response.data
         }));
 }
 

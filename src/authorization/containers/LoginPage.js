@@ -13,6 +13,7 @@ class LoginPage extends Component {
     login = (user) => {
         this.props.dispatch(userLoginRequest(user));
     }
+    
     render() {
         return (
             <div className='d-flex justify-content-center'>

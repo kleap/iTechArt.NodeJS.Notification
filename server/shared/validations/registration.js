@@ -1,7 +1,7 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-export default function validateInput(data) {
+export default(data) => {
   let errors = {};
 
   if (validator.isEmpty(data.email)) {
@@ -20,8 +20,5 @@ export default function validateInput(data) {
     errors.passwordConfirmation = 'Passwords must match';
   }
 
-  return {
-    errors,
-    isValid: isEmpty(errors)
-  }
+  return Promise.resolve({errors, isValid: isEmpty(errors)});
 }

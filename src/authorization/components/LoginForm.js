@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Input, Label, Form, FormGroup, Button } from 'reactstrap';
+import {Input, Label, Form, FormGroup, Button} from 'reactstrap';
 import TextFieldGroup from './../../components/TextFieldGroup';
 import validateInput from './../../../server/shared/validations/login';
 
@@ -15,7 +15,7 @@ class LoginForm extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors })
+            this.setState({errors: nextProps.errors})
         }
     }
 
@@ -26,20 +26,26 @@ class LoginForm extends Component {
     }
 
     isValid() {
-        const { errors, isValid } = validateInput(this.state);
-        if (!isValid) {
-            this.setState({ errors });
-        }
-        return isValid;
+        return validateInput(this.state).then(({errors, isValid}) => {
+            if (!isValid) {
+                this.setState({errors});
+            }
+            return isValid;
+        });
+
     }
 
     onSubmit(e) {
         e.preventDefault();
-        if (this.isValid()) {
-            this
-                .props
-                .login(this.state);
-        }
+        this
+            .isValid()
+            .then((isValid) => {
+                if (isValid) {
+                    this
+                        .props
+                        .login(this.state);
+                }
+            });
     }
 
     render() {
@@ -51,14 +57,14 @@ class LoginForm extends Component {
                     field='email'
                     value={this.state.email}
                     onChange={(e) => this.onChange(e)}
-                    error={this.state.errors.email} />
+                    error={this.state.errors.email}/>
                 <TextFieldGroup
                     label='Password'
                     type='password'
                     field='password'
                     value={this.state.password}
                     onChange={(e) => this.onChange(e)}
-                    error={this.state.errors.password} />
+                    error={this.state.errors.password}/>
                 <Button className='align-self-end'>Login</Button>
             </Form>
 
