@@ -16,10 +16,6 @@ class NotificationPage extends Component {
         this.props.dispatch(notificationDeleteRequest(id));
     }
 
-    cancel = () => {
-        this.props.dispatch(push('/dashboard'));
-    }
-
     render() {
         return (
             <div>

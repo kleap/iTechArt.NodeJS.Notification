@@ -19,12 +19,16 @@ class LoginPage extends Component {
             <div className='d-flex justify-content-center'>
                 <Panel header='Log in'>
                     <LoginForm
-                        login={this.login}
-                        errors={this.props.errors} />
+                        submit={this.login}
+                        errors={this.props.errors || {}} />
                 </Panel>
             </div>
         );
     }
+}
+
+LoginPage.propTypes = {
+    errors: PropTypes.object
 }
 
 export default connect(mapStateToProps)(LoginPage);

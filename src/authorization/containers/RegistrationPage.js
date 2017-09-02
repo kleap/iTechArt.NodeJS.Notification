@@ -15,17 +15,19 @@ class RegistrationPage extends Component {
     render() {
         return (
             <div className='d-flex justify-content-center'>
-                {
                     <Panel header='Registration'>
                         <RegistrationForm
-                            errors={this.props.errors}
-                            register={this.register}
+                            errors={this.props.errors || {}}
+                            submit={this.register}
                         />
                     </Panel>
-                }
             </div>
         );
     }
-
 }
+
+RegistrationPage.propTypes = {
+    errors: PropTypes.object
+}
+
 export default connect(mapStateToProps)(RegistrationPage);

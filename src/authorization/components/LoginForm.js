@@ -3,51 +3,12 @@ import PropTypes from 'prop-types';
 import {Input, Label, Form, FormGroup, Button} from 'reactstrap';
 import TextFieldGroup from './../../components/TextFieldGroup';
 import validateInput from './../../../server/shared/validations/login';
+import BaseForm from './../../components/BaseForm';
 
-class LoginForm extends Component {
+class LoginForm extends BaseForm {
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: '',
-            errors: props.errors || {}
-        }
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors})
-        }
-    }
-
-    onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    isValid() {
-        return validateInput(this.state).then(({errors, isValid}) => {
-            if (!isValid) {
-                this.setState({errors});
-            }
-            return isValid;
-        });
-
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-        this
-            .isValid()
-            .then((isValid) => {
-                if (isValid) {
-                    this
-                        .props
-                        .login(this.state);
-                }
-            });
-    }
-
     render() {
         return (
             <Form className='d-flex flex-column' onSubmit={(e) => this.onSubmit(e)}>
@@ -72,4 +33,17 @@ class LoginForm extends Component {
     }
 }
 
+LoginForm.propTypes = {
+    submit: PropTypes.func.isRequired,
+    errors: PropTypes.object,
+    initialState: PropTypes.object.isRequired
+}
+
+LoginForm.defaultProps = {
+    initialState: {
+        email: '',
+        password: ''
+    },
+    validateInput: validateInput
+}
 export default LoginForm;

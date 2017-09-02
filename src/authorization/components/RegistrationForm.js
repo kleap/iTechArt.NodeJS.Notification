@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import validateInput from './../../../server/shared/validations/registration';
-
+import BaseForm from './../../components/BaseForm';
 import {
     Input,
     Label,
@@ -12,50 +12,9 @@ import {
 } from 'reactstrap';
 import TextFieldGroup from './../../components/TextFieldGroup';
 
-class RegistrationForm extends Component {
+class RegistrationForm extends BaseForm {
     constructor(props) {
         super(props);
-        this.state = {
-            email: '',
-            password: '',
-            passwordConfirmation: '',
-            errors: props.errors || {}
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors})
-        }
-    }
-
-    onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    isValid() {
-       return  validateInput(this.state).then(({errors, isValid}) => {
-            if (!isValid) {
-                this.setState({errors});
-            }
-            return isValid;
-        });
-
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-        this
-            .isValid()
-            .then((isValid) => {
-                if (isValid) {
-                    this
-                        .props
-                        .register(this.state);
-                }
-            });
     }
 
     render() {
@@ -90,7 +49,17 @@ class RegistrationForm extends Component {
 }
 
 RegistrationForm.propTypes = {
-    register: PropTypes.func.isRequired,
-    errors: PropTypes.object
+    submit: PropTypes.func.isRequired,
+    errors: PropTypes.object,
+    initialState: PropTypes.object.isRequired
+}
+
+RegistrationForm.defaultProps = {
+    initialState: {
+        email: '',
+        password: '',
+        passwordConfirmation: ''
+    },
+    validateInput: validateInput
 }
 export default RegistrationForm;
