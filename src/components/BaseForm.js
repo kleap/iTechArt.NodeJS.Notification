@@ -54,4 +54,8 @@ BaseForm.propTypes = {
   validateInput: PropTypes.func,
 };
 
+BaseForm.defaultProps = {
+  validateInput: () => { },
+};
+
 export default BaseForm;

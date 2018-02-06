@@ -1,5 +1,6 @@
 import { createActions } from 'redux-actions';
 import { push } from 'react-router-redux';
+import jwtDecode from 'jwt-decode';
 
 export const actionsCreator = createActions({
   REGISTRATION: {
@@ -12,6 +13,12 @@ export const actionsCreator = createActions({
     REQUEST_SUCCESS: ({ token }) => ({ token }),
     REQUEST_FAIL: ({ errors }) => ({ errors }),
   },
+  LOGOUT: {
+    REQUEST: user => ({ user }),
+    REQUEST_SUCCESS: ({ token }) => ({ token }),
+    REQUEST_FAIL: ({ errors }) => ({ errors }),
+  },
+  CHECK_TOKEN: token => ({ token }),
 });
 
 export const register = user => (dispatch, getState, api) => {
@@ -38,4 +45,24 @@ export const login = user => (dispatch, getState, api) => {
       }
       return dispatch(actionsCreator.login.requestFail(response));
     });
+};
+
+export const logout = () => (dispatch, getState, api) => {
+  const { user: { token } } = getState();
+  const user = jwtDecode(token);
+  dispatch(actionsCreator.logout.request(user._doc));
+  return api.userLogoutRequest(user)
+    .then((response) => {
+      if (response.success) {
+        dispatch(actionsCreator.logout.requestSuccess(response));
+        localStorage.removeItem('token');
+        return push('/login');
+      }
+      return dispatch(actionsCreator.logout.requestFail(response));
+    });
+};
+
+export const getToken = () => (dispatch) => {
+  const token = localStorage.getItem('token');
+  dispatch(actionsCreator.checkToken(token));
 };

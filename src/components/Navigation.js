@@ -21,7 +21,7 @@ class Navigation extends Component {
           <NavLink tag={Link} to="/dashboard">Dashboard</NavLink>
         </NavItem>
         <NavItem hidden={!this.props.isAuth}>
-          <NavLink role="button" onClick={() => this.props.logout()}>Log out</NavLink>
+          <NavLink tag={Link} to="/logout">Logout</NavLink>
         </NavItem>
       </Nav>
     );
@@ -60,7 +60,6 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
-  logout: PropTypes.func.isRequired,
   isAuth: PropTypes.bool.isRequired,
 };
 

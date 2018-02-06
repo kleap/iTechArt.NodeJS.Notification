@@ -69,7 +69,9 @@ export default class AuthController {
 
   logout(req, res) {
     req.session.destroy(() => {
-      this.sendResponse(res, 200, { success: true });
+      res.status(200).json({
+        success: true,
+      });
     });
   }
 }
