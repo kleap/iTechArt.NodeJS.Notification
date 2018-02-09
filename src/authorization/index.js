@@ -1,5 +1,5 @@
-import LoginPage from './containers/LoginPage';
-import RegistrationPage from './containers/RegistrationPage';
-import LogoutPage from './containers/LogoutPage';
+import LoginPage from './containers/Login';
+import RegistrationPage from './containers/Registration';
+import LogoutPage from './containers/Logout';
 
 export { LoginPage, RegistrationPage, LogoutPage };

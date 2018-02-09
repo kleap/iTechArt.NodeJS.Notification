@@ -11,10 +11,16 @@ class Notification extends React.Component {
     type: PropTypes.string,
   }
 
-  static defaultProps = {
-    header: 'Attention!',
-    message: '',
-    type: '',
+  static defaultProps = { header: 'Attention!', message: '', type: '' }
+
+  componentWillReceiveProps() {
+    this.timer = setTimeout(() => {
+      this.props.close();
+    }, 3000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   close = () => {

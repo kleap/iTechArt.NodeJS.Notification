@@ -1,5 +1,5 @@
 import React from 'react';
-import BaseForm from 'common/BaseForm';
+import BaseForm from 'common/components/BaseForm';
 
 class LogoutForm extends BaseForm {
   componentDidMount() {

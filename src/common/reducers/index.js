@@ -15,7 +15,7 @@ const reducer = handleActions({
     };
   },
 }, {
-  notification: { message: 'Input elements should have autocomplete', header: 'ALLO' },
+  notification: { message: '', header: '' },
 });
 
 export default reducer;

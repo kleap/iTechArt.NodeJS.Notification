@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Notification from './Notification';
-import { closeNotification } from './../actions';
+import Notification from './../../components/Notification';
+import { closeNotification } from './../../actions';
 
 export default connect(state => ({
   message: state.common.notification.message,

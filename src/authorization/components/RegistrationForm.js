@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'reactstrap';
-import BaseForm from 'common/BaseForm';
-import TextFieldGroup from 'common/TextFieldGroup';
+import BaseForm from 'common/components/BaseForm';
+import TextFieldGroup from 'common/components/TextFieldGroup';
 import Panel from 'common/Panel';
 import validateInput from './../../../server/shared/validations/registration';
 
@@ -47,8 +47,8 @@ class RegistrationForm extends BaseForm {
 
 RegistrationForm.propTypes = {
   submit: PropTypes.func.isRequired,
-  errors: PropTypes.object,
-  initialState: PropTypes.object.isRequired,
+  errors: PropTypes.instanceOf(Object),
+  initialState: PropTypes.instanceOf(Object),
 };
 
 RegistrationForm.defaultProps = {
@@ -57,6 +57,7 @@ RegistrationForm.defaultProps = {
     password: '',
     passwordConfirmation: '',
   },
+  errors: {},
   validateInput,
 };
 export default RegistrationForm;

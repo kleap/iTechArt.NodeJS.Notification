@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TextFieldGroup from 'common/TextFieldGroup';
+import TextFieldGroup from 'common/components/TextFieldGroup';
 import { Form, Button, FormGroup } from 'reactstrap';
 
 class NotificationForm extends Component {

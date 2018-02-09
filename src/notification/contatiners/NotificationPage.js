@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import Panel from 'common/Panel';
 
 import NotificationForm from './../components/NotificationForm';
@@ -20,12 +19,12 @@ class NotificationPage extends Component {
     render() {
       return (
         <div>
-            <div className="d-flex justify-content-center">
-                <Panel header="Notification">
-                    <NotificationForm item={this.props.item} save={this.save} delete={this.delete} />
-                  </Panel>
-              </div>
-          </div>
+          <div className="d-flex justify-content-center">
+              <Panel header="Notification">
+                  <NotificationForm item={this.props.item} save={this.save} delete={this.delete} />
+                </Panel>
+            </div>
+        </div>
       );
     }
 }

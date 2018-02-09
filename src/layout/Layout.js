@@ -2,14 +2,14 @@ import React from 'react';
 import { Switch, withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
-import LoadingWrapper from 'common/LoadingWrapper';
+import LoadingWrapper from 'common/containers/Loader';
 import PrivateRoute from './PrivateRoute';
 import { LoginPage, RegistrationPage, LogoutPage } from './../authorization';
 import DashboardPage from './../dashboard/containers/DashboardPage';
 import NotificationPage from './../notification/contatiners/NotificationPage';
 import Navigation from './Navigation';
-import AuthWrapper from './../authorization/components/Auth';
-import Notification from './../common/Notification';
+import AuthWrapper from './../authorization/containers/Auth';
+import Notification from './../common/containers/Notification';
 
 const WrappedSwitch = LoadingWrapper(Switch);
 

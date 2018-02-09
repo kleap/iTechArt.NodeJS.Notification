@@ -15,34 +15,34 @@ class DashboardPage extends Component {
       .dispatch(notificationFetchRequest());
   }
 
-    onChoose = (id) => {
-      this
-        .props
-        .dispatch(notificationGetRequest(id));
-    }
+  onChoose = (id) => {
+    this
+      .props
+      .dispatch(notificationGetRequest(id));
+  }
 
-    onToggle = (id) => {
-      this
-        .props
-        .dispatch(toggleNotification(id));
-    }
+  onToggle = (id) => {
+    this
+      .props
+      .dispatch(toggleNotification(id));
+  }
 
-    render() {
-      return (
-        <div>
-            <div className="d-flex justify-content-center">
-                <Panel header="Dashboard" wide>
-                    <Dashboard
-                        items={this.props.items}
-                        onChoose={this.onChoose}
-                        onToggle={this.onToggle}
-                      />
-                  </Panel>
-              </div>
-          </div>
+  render() {
+    return (
+      <div>
+        <div className="d-flex justify-content-center">
+          <Panel header="Dashboard" wide>
+            <Dashboard
+              items={this.props.items}
+              onChoose={this.onChoose}
+              onToggle={this.onToggle}
+            />
+          </Panel>
+        </div>
+      </div>
 
-      );
-    }
+    );
+  }
 }
 
 export default connect(mapStateToProps)(DashboardPage);
