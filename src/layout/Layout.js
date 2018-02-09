@@ -9,11 +9,13 @@ import DashboardPage from './../dashboard/containers/DashboardPage';
 import NotificationPage from './../notification/contatiners/NotificationPage';
 import Navigation from './Navigation';
 import AuthWrapper from './../authorization/components/Auth';
+import Notification from './../common/Notification';
 
 const WrappedSwitch = LoadingWrapper(Switch);
 
 const Layout = props => (
   <div>
+    <Notification />
     <Navigation isAuth={props.isAuth} />
     <main>
       <WrappedSwitch>

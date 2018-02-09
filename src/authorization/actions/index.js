@@ -1,6 +1,7 @@
 import { createActions } from 'redux-actions';
 import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
+import { actions as commonActions } from './../../common/actions';
 
 export const actionsCreator = createActions({
   REGISTRATION: {
@@ -30,6 +31,7 @@ export const register = user => (dispatch, getState, api) => {
         localStorage.setItem('token', response.token);
         return push('/dashboard');
       }
+      dispatch(commonActions.showNotification({ ...response, type: 'error' }));
       return dispatch(actionsCreator.registration.requestFail(response));
     });
 };
@@ -43,6 +45,7 @@ export const login = user => (dispatch, getState, api) => {
         localStorage.setItem('token', response.token);
         return push('/dashboard');
       }
+      dispatch(commonActions.showNotification({ ...response, type: 'error' }));
       return dispatch(actionsCreator.login.requestFail(response));
     });
 };
@@ -58,6 +61,7 @@ export const logout = () => (dispatch, getState, api) => {
         localStorage.removeItem('token');
         return push('/login');
       }
+      dispatch(commonActions.showNotification({ ...response, type: 'error' }));
       return dispatch(actionsCreator.logout.requestFail(response));
     });
 };

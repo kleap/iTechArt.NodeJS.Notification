@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import userReducer from './authorization/reducers';
+import commonReducer from './common/reducers';
 import { dashboardReducer } from './dashboard/reducer/reducer';
 import { notificationReducer } from './notification/reducer/reducer';
 import Layout from './layout/Layout';
@@ -19,6 +20,7 @@ const store = createStore(combineReducers({
   router: routerReducer,
   dashboard: dashboardReducer,
   notification: notificationReducer,
+  common: commonReducer,
 }), {
   dashboard: {
     items: [],

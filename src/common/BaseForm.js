@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class BaseForm extends Component {
+class BaseForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,12 +50,15 @@ class BaseForm extends Component {
 
 BaseForm.propTypes = {
   submit: PropTypes.func.isRequired,
-  errors: PropTypes.object,
+  errors: PropTypes.instanceOf(Object),
   validateInput: PropTypes.func,
+  initialState: PropTypes.instanceOf(Object),
 };
 
 BaseForm.defaultProps = {
   validateInput: () => { },
+  errors: {},
+  initialState: {},
 };
 
 export default BaseForm;
