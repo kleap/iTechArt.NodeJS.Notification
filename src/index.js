@@ -12,6 +12,8 @@ import { dashboardReducer } from './dashboard/reducer/reducer';
 import { notificationReducer } from './notification/reducer/reducer';
 import Layout from './layout/Layout';
 import * as authApi from './authorization/api';
+import apiMiddleware from './middleware/callApi';
+import actions from './actions';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -26,7 +28,7 @@ const store = createStore(combineReducers({
     items: [],
   },
   notification: {},
-}, compose(applyMiddleware(middleware, thunk.withExtraArgument(authApi)), window.devToolsExtension
+}, compose(applyMiddleware(middleware, thunk.withExtraArgument(authApi), apiMiddleware(actions)), window.devToolsExtension
   ? window.devToolsExtension()
   : f => f));
 

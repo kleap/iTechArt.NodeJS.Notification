@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
 export const actions = createActions({
-  CLOSE_NOTIFICATION: error => error,
+  CLOSE_NOTIFICATION: () => { },
   SHOW_NOTIFICATION: notification => ({ notification }),
 });
 

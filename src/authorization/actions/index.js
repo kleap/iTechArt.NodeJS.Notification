@@ -2,53 +2,50 @@ import { createActions } from 'redux-actions';
 import { push } from 'react-router-redux';
 import jwtDecode from 'jwt-decode';
 import { actions as commonActions } from './../../common/actions';
+import {
+  userRegistrationRequest,
+  userLoginRequest,
+  userLogoutRequest,
+} from './../api';
 
-export const actionsCreator = createActions({
-  REGISTRATION: {
-    REQUEST: user => ({ user }),
+const errHandler = (dispatch, response) => {
+  if (response.message) {
+    dispatch(commonActions.showNotification({ ...response, type: 'error' }));
+  }
+};
+
+const createActionFlow = (title, { apiCall, cb = () => { }, err = errHandler }) => ({
+  [title.toUpperCase()]: {
+    CALL: data => ({ prefix: title.toLowerCase(), apiCall: () => apiCall(data), cb, err }),
+    REQUEST: () => ({}),
     REQUEST_SUCCESS: ({ token }) => ({ token }),
     REQUEST_FAIL: ({ errors }) => ({ errors }),
   },
-  LOGIN: {
-    REQUEST: user => ({ user }),
-    REQUEST_SUCCESS: ({ token }) => ({ token }),
-    REQUEST_FAIL: ({ errors }) => ({ errors }),
-  },
-  LOGOUT: {
-    REQUEST: user => ({ user }),
-    REQUEST_SUCCESS: ({ token }) => ({ token }),
-    REQUEST_FAIL: ({ errors }) => ({ errors }),
-  },
-  CHECK_TOKEN: token => ({ token }),
 });
 
-export const register = user => (dispatch, getState, api) => {
-  dispatch(actionsCreator.registration.request(user));
-  return api.userRegistrationRequest(user)
-    .then((response) => {
-      if (response.success) {
-        dispatch(actionsCreator.registration.requestSuccess(response));
-        localStorage.setItem('token', response.token);
-        return push('/dashboard');
-      }
-      dispatch(commonActions.showNotification({ ...response, type: 'error' }));
-      return dispatch(actionsCreator.registration.requestFail(response));
-    });
-};
-
-export const login = user => (dispatch, getState, api) => {
-  dispatch(actionsCreator.login.request(user));
-  return api.userLoginRequest(user)
-    .then((response) => {
-      if (response.success) {
-        dispatch(actionsCreator.login.requestSuccess(response));
-        localStorage.setItem('token', response.token);
-        return push('/dashboard');
-      }
-      dispatch(commonActions.showNotification({ ...response, type: 'error' }));
-      return dispatch(actionsCreator.login.requestFail(response));
-    });
-};
+export const actionsCreator = createActions({
+  ...createActionFlow('registration', {
+    apiCall: userRegistrationRequest,
+    cb: (dispatch, response) => {
+      localStorage.setItem('token', response.token);
+      return push('/dashboard');
+    },
+  }),
+  ...createActionFlow('login', {
+    apiCall: userLoginRequest,
+    cb: (dispatch, response) => {
+      localStorage.setItem('token', response.token);
+      return push('/dashboard');
+    },
+  }),
+  ...createActionFlow('logout', {
+    apiCall: userLogoutRequest,
+    cb: (dispatch, response) => {
+      localStorage.setItem('token', response.token);
+      return push('/dashboard');
+    },
+  }),
+});
 
 export const logout = () => (dispatch, getState, api) => {
   const { user: { token } } = getState();

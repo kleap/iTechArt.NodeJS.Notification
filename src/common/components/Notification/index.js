@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Notification.css';
 
-class Notification extends React.Component {
+class Notification extends React.PureComponent {
   static propTypes = {
     message: PropTypes.string,
     close: PropTypes.func.isRequired,
@@ -13,10 +13,13 @@ class Notification extends React.Component {
 
   static defaultProps = { header: 'Attention!', message: '', type: '' }
 
-  componentWillReceiveProps() {
-    this.timer = setTimeout(() => {
-      this.props.close();
-    }, 3000);
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.message || nextProps.header) {
+      this.timer = setTimeout(() => {
+        this.props.close();
+      }, 3000);
+    }
   }
 
   componentWillUnmount() {
@@ -24,6 +27,7 @@ class Notification extends React.Component {
   }
 
   close = () => {
+    clearTimeout(this.timer);
     this.props.close();
   }
 
