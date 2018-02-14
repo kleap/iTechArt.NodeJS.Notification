@@ -4,32 +4,43 @@
     top: 64px;
     right: 10px;
     width: 300px;
-    height: 120px;
+    min-height: 120px;
     padding: 10px;
-    background-color: rgba(173, 216, 230, 0.4);
+    background-color: rgba(64, 179, 218, 0.671);
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.notification_error {
-    background-color: rgba(255, 0, 0, 0.3);;
+    overflow-x: hidden;
 }
 
 .notification__header {
-  color: green;
+    color: green;
+    font-size: 100%;
+}
+
+.notification__message {
+    font-size: smaller;
 }
 
 .notification__header_error {
-  color: red;
+    color: red;
+    font-size: 100%;
 }
 
 .notification__close-button {
-    float: right;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    text-align: center;
-    color: black;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    border: none;
+    box-sizing: content-box;
     border-radius: 50%;
-    border: 1px solid #f0f0f0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.notification__close-button:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notification__close-button::before {
+    content: '✖';
 }

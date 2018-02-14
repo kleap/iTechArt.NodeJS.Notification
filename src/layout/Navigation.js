@@ -11,22 +11,6 @@ class Navigation extends Component {
     };
   }
 
-  get privateNav() {
-    return (
-      <Nav className="ml-auto" navbar>
-        <NavItem hidden={!this.props.isAuth}>
-          <NavLink tag={Link} to="/notification">Notification</NavLink>
-        </NavItem>
-        <NavItem hidden={!this.props.isAuth}>
-          <NavLink tag={Link} to="/dashboard">Dashboard</NavLink>
-        </NavItem>
-        <NavItem hidden={!this.props.isAuth}>
-          <NavLink tag={Link} to="/logout">Logout</NavLink>
-        </NavItem>
-      </Nav>
-    );
-  }
-
   get publicNav() {
     return (
       <Nav className="ml-auto" navbar>
@@ -52,7 +36,7 @@ class Navigation extends Component {
         <NavbarToggler right onClick={this.toggle} />
         <NavbarBrand href="/">Notifications</NavbarBrand>
         <Collapse isOpen={this.state.isOpen} navbar >
-          {this.props.isAuth ? this.privateNav : this.publicNav}
+          {this.publicNav}
         </Collapse>
       </Navbar>
     );

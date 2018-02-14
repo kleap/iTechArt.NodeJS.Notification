@@ -5,14 +5,14 @@ import jwtDecode from 'jwt-decode';
 export default (Wrapped) => {
   class AuthWrapper extends Component {
     static propTypes = {
-      getToken: PropTypes.func.isRequired,
+      checkToken: PropTypes.func.isRequired,
       token: PropTypes.string,
     }
 
     static defaultProps = { token: '' }
 
     componentDidMount() {
-      this.props.getToken();
+      this.props.checkToken();
     }
 
     render() {

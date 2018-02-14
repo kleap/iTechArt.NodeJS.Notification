@@ -1,7 +1,7 @@
-import { actionsCreator } from './authorization/actions';
+import authActions from './authorization/actions/creator';
 import { actions } from './common/actions';
 
 export default {
-  ...actionsCreator,
+  ...authActions,
   ...actions,
 };

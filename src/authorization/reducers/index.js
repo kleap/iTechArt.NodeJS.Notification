@@ -1,10 +1,10 @@
 import { handleActions, combineActions } from 'redux-actions';
-import { actionsCreator } from './../actions';
+import actions from './../actions/creator';
 
 const reducer = handleActions({
   [combineActions(
-    actionsCreator.registration.request,
-    actionsCreator.login.request,
+    actions.registration.request,
+    actions.login.request,
   )](state, action) {
     return {
       ...state,
@@ -14,8 +14,8 @@ const reducer = handleActions({
     };
   },
   [combineActions(
-    actionsCreator.registration.requestSuccess,
-    actionsCreator.login.requestSuccess,
+    actions.registration.requestSuccess,
+    actions.login.requestSuccess,
   )](state, action) {
     return {
       ...state,
@@ -25,9 +25,9 @@ const reducer = handleActions({
     };
   },
   [combineActions(
-    actionsCreator.registration.requestFail,
-    actionsCreator.login.requestFail,
-    actionsCreator.logout.requestSuccess,
+    actions.registration.requestFail,
+    actions.login.requestFail,
+    actions.logout.requestSuccess,
   )](state, action) {
     return {
       ...state,
@@ -36,7 +36,7 @@ const reducer = handleActions({
       token: null,
     };
   },
-  [actionsCreator.checkToken](state, action) {
+  [actions.checkToken](state, action) {
     return {
       ...state,
       ...action.payload,

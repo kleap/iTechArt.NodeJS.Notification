@@ -1,5 +1,5 @@
 import validator from 'validator';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 
 export default (data) => {
   const errors = {};

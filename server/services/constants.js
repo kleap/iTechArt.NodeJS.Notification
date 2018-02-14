@@ -1,1 +1,0 @@
-export const SEND_EMAIL_JOB_NAME = 'SEND_EMAIL_JOB_NAME';
